@@ -1,5 +1,8 @@
 # Operos Genomas - chinese whispers 
 
+Script to trigger audio recording with a raspberry pi using python, a USB microphone and a hardware button connected to one of the GPIOs of the raspberry.
+
+
 ## 1. Install pyaudio
 Debian/Ubuntu
 Use the package manager to install PyAudio:
