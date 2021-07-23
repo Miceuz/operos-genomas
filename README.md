@@ -20,21 +20,26 @@ GPIO Zero is packaged in the apt repositories of Raspberry Pi OS, Debian and Ubu
 
 ### 2.1 apt
 First, update your repositories list:
-
+```
 pi@raspberrypi:~$ sudo apt update
+```
 Then install the package for Python 3:
 
 pi@raspberrypi:~$ sudo apt install python3-gpiozero
 or Python 2:
-
+```
 pi@raspberrypi:~$ sudo apt install python-gpiozero
+```
+
 ### 2.2 pip
 If you’re using another operating system on your Raspberry Pi, you may need to use pip to install GPIO Zero instead. Install pip using get-pip and then type:
-
+```
 pi@raspberrypi:~$ sudo pip3 install gpiozero
+```
 or for Python 2:
-
+```
 pi@raspberrypi:~$ sudo pip install gpiozero
+```
 To install GPIO Zero in a virtual environment, see the Development page.
 
 ### 2.3 PC/Mac
