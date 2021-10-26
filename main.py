@@ -3,6 +3,7 @@
 import  pyaudio
 import  wave
 import  numpy
+from time import sleep
 from    gpiozero    import Button
 
 button = Button(2)              # GPIO 
@@ -28,6 +29,7 @@ print(audio.get_device_info_by_index(2))
 
 def callback(in_data, frame_count, time_info, status):
     mic_audio = numpy.fromstring(in_data,dtype=numpy.int16)
+    frames.append(mic_audio)
     return (mic_audio, pyaudio.paContinue)
 
 stream = audio.open(format   = form_1,
@@ -43,6 +45,8 @@ Setting up the array that will handle the timeseries of audio data from our inpu
 """
 mic_audio = numpy.empty((chunk),dtype="int16")
 
+frames = []
+
 while True:
     if button.is_pressed:
         print("Stop recording")
@@ -51,15 +55,17 @@ while True:
         # create pyaudio stream
 
         print("recording")
-        frames = []
+        # frames = []
+
+        sleep(record_secs)
 
         # loop through stream and append audio chunks to frame array
-        for ii in range(0,int((samp_rate/chunk)*record_secs)):
-            # data = stream.read(chunk)
-            data = mic_audio
-            frames.append(data)
-            if button.is_pressed:
-                break
+        # for ii in range(0,int((samp_rate/chunk)*record_secs)):
+        #     # data = stream.read(chunk)
+        #     data = mic_audio
+        #     frames.append(data)
+        #     if button.is_pressed:
+        #         break
 
         print("finished recording")
 
