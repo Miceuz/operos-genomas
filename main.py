@@ -22,6 +22,7 @@ audio = pyaudio.PyAudio() # create pyaudio instantiation
 
 print("sample rate")
 print(audio.get_device_info_by_index(2)['defaultSampleRate'])
+print(audio.get_device_info_by_index(2))
 
 while True:
     if button.is_pressed:
