@@ -24,24 +24,38 @@ print("sample rate")
 print(audio.get_device_info_by_index(2)['defaultSampleRate'])
 print(audio.get_device_info_by_index(2))
 
+
+def callback(in_data, frame_count, time_info, status):
+    mic_audio = numpy.fromstring(in_data,dtype=numpy.int16)
+    return (mic_audio, pyaudio.paContinue)
+
+stream = audio.open(format   = form_1,
+                            rate     = samp_rate,
+                            channels = chans,
+                            input_device_index  = dev_index,
+                            input    = True,
+                            frames_per_buffer   =chunk,
+                            stream_callback = callback)
+
+"""
+Setting up the array that will handle the timeseries of audio data from our input
+"""
+mic_audio = numpy.empty((self.buffersize),dtype="int16")
+
 while True:
     if button.is_pressed:
         print("Stop recording")
     else:
         print("Start recording")
         # create pyaudio stream
-        stream = audio.open(format   = form_1,
-                            rate     = samp_rate,
-                            channels = chans,
-                            input_device_index  = dev_index,
-                            input    = True,
-                            frames_per_buffer   =chunk)
+
         print("recording")
         frames = []
 
         # loop through stream and append audio chunks to frame array
         for ii in range(0,int((samp_rate/chunk)*record_secs)):
-            data = stream.read(chunk)
+            # data = stream.read(chunk)
+            data = mic_audio
             frames.append(data)
             if button.is_pressed:
                 break
