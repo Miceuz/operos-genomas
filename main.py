@@ -70,7 +70,7 @@ while True:
 
         # save the audio frames as .wav file
         filename = wav_output_filename , counter , ".wav"
-        with open(filename,"wb") as wavefile
+        with open(filename,"wb") as wavefile:
         # wavefile = wave.open(filename,'wb')
             wavefile.setnchannels(chans)
             wavefile.setsampwidth(audio.get_sample_size(form_1))
