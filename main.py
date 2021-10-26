@@ -19,7 +19,7 @@ dev_index   = 2                 # device index found by p.get_device_info_by_ind
 
 wav_output_filename = 'telephone_' # name of .wav file
 
-audio = pyaudio.PyAudio() # create pyaudio instantiation
+audio = pyaudio.PyAudio() # create pyaudio instance
 
 print("sample rate")
 print(audio.get_device_info_by_index(2)['defaultSampleRate'])
@@ -70,12 +70,13 @@ while True:
 
         # save the audio frames as .wav file
         filename = wav_output_filename , counter , ".wav"
-        wavefile = wave.open(filename,'wb')
-        wavefile.setnchannels(chans)
-        wavefile.setsampwidth(audio.get_sample_size(form_1))
-        wavefile.setframerate(samp_rate)
-        wavefile.writeframes(b''.join(frames))
-        wavefile.close()
+        with open(filename,"wb") as wavefile
+        # wavefile = wave.open(filename,'wb')
+            wavefile.setnchannels(chans)
+            wavefile.setsampwidth(audio.get_sample_size(form_1))
+            wavefile.setframerate(samp_rate)
+            wavefile.writeframes(b''.join(frames))
+            wavefile.close()
 
 
 audio.terminate()
