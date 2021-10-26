@@ -39,7 +39,7 @@ while True:
         for ii in range(0,int((samp_rate/chunk)*record_secs)):
             data = stream.read(chunk)
             frames.append(data)
-            if button.ispressed:
+            if button.is_pressed:
                 break
 
         print("finished recording")
