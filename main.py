@@ -41,7 +41,7 @@ stream = audio.open(format   = form_1,
 """
 Setting up the array that will handle the timeseries of audio data from our input
 """
-mic_audio = numpy.empty((self.buffersize),dtype="int16")
+mic_audio = numpy.empty((chunk),dtype="int16")
 
 while True:
     if button.is_pressed:
