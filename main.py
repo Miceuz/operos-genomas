@@ -2,6 +2,7 @@
 
 import  pyaudio
 import  wave
+import  numpy
 from    gpiozero    import Button
 
 button = Button(2)              # GPIO 
