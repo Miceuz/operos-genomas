@@ -78,5 +78,6 @@ while True:
         wavefile.writeframes(b''.join(frames))
         wavefile.close()
 
+        break
 
 audio.terminate()
