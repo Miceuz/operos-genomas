@@ -70,13 +70,13 @@ while True:
 
         # save the audio frames as .wav file
         filename = wav_output_filename +str(counter) + ".wav"
-        with open(filename,"wb") as wavefile:
-        # wavefile = wave.open(filename,'wb')
-            wavefile.setnchannels(chans)
-            wavefile.setsampwidth(audio.get_sample_size(form_1))
-            wavefile.setframerate(samp_rate)
-            wavefile.writeframes(b''.join(frames))
-            wavefile.close()
+        # with open(filename,"wb") as wavefile:
+        wavefile = wave.open(filename,'wb')   
+        wavefile.setnchannels(chans)
+        wavefile.setsampwidth(audio.get_sample_size(form_1))
+        wavefile.setframerate(samp_rate)
+        wavefile.writeframes(b''.join(frames))
+        wavefile.close()
 
 
 audio.terminate()
