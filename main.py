@@ -11,7 +11,7 @@ counter      = 1                # number of wav file
 
 form_1      = pyaudio.paInt16   # 16-bit resolution
 chans       = 1                 # 1 channel
-samp_rate   = 48000             # 44.1kHz sampling rate
+samp_rate   = 44100             # 44.1kHz sampling rate
 chunk       = 4096              # 2^12 samples for buffer
 record_secs = 6               # seconds to record
 dev_index   = 2                 # device index found by p.get_device_info_by_index(ii)
@@ -19,6 +19,9 @@ dev_index   = 2                 # device index found by p.get_device_info_by_ind
 wav_output_filename = 'telephone_' # name of .wav file
 
 audio = pyaudio.PyAudio() # create pyaudio instantiation
+
+print("sample rate")
+print(audio.get_device_info_by_index(2)['defaultSampleRate'])
 
 while True:
     if button.is_pressed:
