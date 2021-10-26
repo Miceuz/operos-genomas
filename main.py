@@ -6,7 +6,7 @@ from    gpiozero    import Button
 
 button = Button(2)              # GPIO 
 
-is_recording = false            # control flag
+is_recording = False            # control flag
 counter      = 1                # number of wav file
 
 form_1      = pyaudio.paInt16   # 16-bit resolution
