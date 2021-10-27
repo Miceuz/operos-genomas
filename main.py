@@ -32,15 +32,6 @@ def callback(in_data, frame_count, time_info, status):
     return (mic_audio, pyaudio.paContinue)
 
 
-print("Creating audio stream")
-stream = audio.open(format   = form_1,
-                            rate     = samp_rate,
-                            channels = chans,
-                            input_device_index  = dev_index,
-                            input    = True,
-                            frames_per_buffer   =chunk,
-                            stream_callback = callback)
-
 """
 Setting up the array that will handle the timeseries of audio data from our input
 """
@@ -60,6 +51,17 @@ while True:
     else:
         print()
         print("Recording")
+
+
+        print("Creating audio stream")
+        stream = audio.open(format   = form_1,
+                            rate     = samp_rate,
+                            channels = chans,
+                            input_device_index  = dev_index,
+                            input    = True,
+                            frames_per_buffer   =chunk,
+                            stream_callback = callback)
+
         start_time = time.time()
 
         while (time.time()-start_time <= record_secs):
@@ -90,8 +92,9 @@ while True:
 
         print("File saved as: ", filename)
 
-        # Increment the count for the filename
+        # Increment the count for the filename and reset frames
         counter += 1
+        frames = []
 
         # comment this line out in production for the script to loop forever
         # break
