@@ -3,7 +3,7 @@
 import  pyaudio
 import  wave
 import  numpy
-from time import sleep
+import  time
 from    gpiozero    import Button
 
 button = Button(2)              # GPIO 
@@ -48,9 +48,15 @@ mic_audio = numpy.empty((chunk),dtype="int16")
 
 frames = []
 
+animation = "|/-\\"
+idx = 0
+
 while True:
     if button.is_pressed:
-        print("Lift the button to start recording")
+        print("Lift the button to start recording", animation[idx % len(animation)], end="\r")
+        idx += 1
+        time.sleep(0.1)
+        # print("Lift the button to start recording", end='\r')
     else:
 
         print("Recording")
