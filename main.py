@@ -58,7 +58,7 @@ while True:
         time.sleep(0.1)
         # print("Lift the button to start recording", end='\r')
     else:
-
+        print()
         print("Recording")
         start_time = time.time()
 
@@ -94,6 +94,6 @@ while True:
         counter += 1
 
         # comment this line out in production for the script to loop forever
-        break
+        # break
 
 audio.terminate()
