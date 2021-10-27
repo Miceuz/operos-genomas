@@ -15,23 +15,24 @@ form_1      = pyaudio.paInt16   # 16-bit resolution
 chans       = 1                 # 1 channel
 samp_rate   = 44100             # 44.1kHz sampling rate
 chunk       = 4096              # 2^12 samples for buffer
-record_secs = 6               # seconds to record
+record_secs = 60               # seconds to record
 dev_index   = 2                 # device index found by p.get_device_info_by_index(ii)
 
 wav_output_filename = 'telephone_' # name of .wav file
 
+print("Creating instance of PyAudio:")
 audio = pyaudio.PyAudio() # create pyaudio instance
 
-print("sample rate")
-print(audio.get_device_info_by_index(2)['defaultSampleRate'])
+print("Device used:")
 print(audio.get_device_info_by_index(2))
-
 
 def callback(in_data, frame_count, time_info, status):
     mic_audio = numpy.fromstring(in_data,dtype=numpy.int16)
     frames.append(mic_audio)
     return (mic_audio, pyaudio.paContinue)
 
+
+print("Creating audio stream")
 stream = audio.open(format   = form_1,
                             rate     = samp_rate,
                             channels = chans,
@@ -49,23 +50,20 @@ frames = []
 
 while True:
     if button.is_pressed:
-        print("Stop recording")
+        print("Lift the button to start recording")
     else:
-        print("Start recording")
-        # create pyaudio stream
 
-        print("recording")
-        # frames = []
+        print("Recording")
+        start_time = time.time()
 
-        sleep(record_secs)
+        while (time.time()-start_time <= record_secs):
+            """
+            Record for "record_secs" number of seconds and check if stop button has been pressed to scape earlier 
+            and stop recording.
+            """
+            if button.is_pressed:
+                break
 
-        # loop through stream and append audio chunks to frame array
-        # for ii in range(0,int((samp_rate/chunk)*record_secs)):
-        #     # data = stream.read(chunk)
-        #     data = mic_audio
-        #     frames.append(data)
-        #     if button.is_pressed:
-        #         break
 
         print("finished recording")
 
@@ -84,6 +82,12 @@ while True:
         wavefile.writeframes(b''.join(frames))
         wavefile.close()
 
+        print("File saved as: ", filename)
+
+        # Increment the count for the filename
+        counter += 1
+
+        # comment this line out in production for the script to loop forever
         break
 
 audio.terminate()
