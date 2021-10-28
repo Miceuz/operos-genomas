@@ -24,7 +24,7 @@ print("Creating instance of PyAudio:")
 audio = pyaudio.PyAudio() # create pyaudio instance
 
 print("Device used:")
-print(audio.get_device_info_by_index(2))
+print(audio.get_device_info_by_index(dev_index))
 
 def callback(in_data, frame_count, time_info, status):
     mic_audio = numpy.fromstring(in_data,dtype=numpy.int16)
