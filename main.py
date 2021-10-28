@@ -47,7 +47,7 @@ while True:
         print("Lift the button to start recording", animation[idx % len(animation)], end="\r")
         idx += 1
         time.sleep(0.1)
-        # print("Lift the button to start recording", end='\r')
+
     else:
         print()
         print("Recording")
@@ -82,7 +82,7 @@ while True:
 
         # save the audio frames as .wav file
         filename = wav_output_filename +str(counter) + ".wav"
-        # with open(filename,"wb") as wavefile:
+
         wavefile = wave.open(filename,'wb')   
         wavefile.setnchannels(chans)
         wavefile.setsampwidth(audio.get_sample_size(form_1))
