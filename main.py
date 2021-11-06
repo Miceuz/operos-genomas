@@ -4,6 +4,7 @@ import  pyaudio
 import  wave
 import  numpy
 import  time
+import  pygame
 from    gpiozero    import Button
 
 button = Button(2)              # GPIO 
@@ -49,6 +50,14 @@ while True:
         time.sleep(0.1)
 
     else:
+
+        """
+        First, play an old telephone tone lasting 5 seconds...
+        """
+        pygame.mixer.init()
+        pygame.mixer.music.load("myFile.wav")
+        pygame.mixer.music.play()
+
         print()
         print("Recording")
 
@@ -72,6 +81,7 @@ while True:
             if button.is_pressed:
                 break
 
+        pygame.mixer.quit()
 
         print("finished recording")
 
