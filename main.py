@@ -55,7 +55,7 @@ while True:
         First, play an old telephone tone lasting 5 seconds...
         """
         pygame.mixer.init()
-        pygame.mixer.music.load("myFile.wav")
+        pygame.mixer.music.load("US_dial_tone.ogg.mp3")
         pygame.mixer.music.play()
 
         print()
