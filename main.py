@@ -43,18 +43,19 @@ frames = []
 animation = "|/-\\"
 idx = 0
 
+pygame.mixer.init()
+
 while True:
     if button.is_pressed:
         print("Lift the button to start recording", animation[idx % len(animation)], end="\r")
         idx += 1
-        time.sleep(0.1)
+        time.sleep(0.5)
 
     else:
 
         """
         First, play an old telephone tone lasting 5 seconds...
         """
-        pygame.mixer.init()
         pygame.mixer.music.load("US_dial_tone.ogg.mp3")
         pygame.mixer.music.play()
 
@@ -81,7 +82,7 @@ while True:
             if button.is_pressed:
                 break
 
-        pygame.mixer.quit()
+        pygame.mixer.music.stop()
 
         print("finished recording")
 
@@ -108,5 +109,12 @@ while True:
 
         # comment this line out in production for the script to loop forever
         # break
+
+        while not button.is_pressed:
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.load("US_dial_tone.ogg.mp3")
+                pygame.mixer.music.play()
+
+        pygame.mixer.music.stop()
 
 audio.terminate()
