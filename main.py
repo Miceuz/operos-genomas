@@ -19,7 +19,7 @@ chunk       = 4096              # 2^12 samples for buffer
 record_secs = 60               # seconds to record
 dev_index   = 1                 # device index found by p.get_device_info_by_index(ii)
 
-wav_output_filename = 'telephone_' # name of .wav file
+output_dir = 'records'
 
 print("Creating instance of PyAudio:")
 audio = pyaudio.PyAudio() # create pyaudio instance
@@ -92,7 +92,7 @@ while True:
         # audio.terminate()
 
         # save the audio frames as .wav file
-        filename = wav_output_filename +str(counter) + ".wav"
+        filename = output_dir+'/'+str(int(time.time())) + ".wav"
 
         wavefile = wave.open(filename,'wb')   
         wavefile.setnchannels(chans)
