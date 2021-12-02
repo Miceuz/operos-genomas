@@ -1,0 +1,13 @@
+[Unit]
+Description=Operos genomas
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/pi/operos-genomas/main.py
+User=pi
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
