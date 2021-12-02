@@ -19,7 +19,7 @@ chunk       = 4096              # 2^12 samples for buffer
 record_secs = 60               # seconds to record
 dev_index   = 1                 # device index found by p.get_device_info_by_index(ii)
 
-output_dir = 'records'
+output_dir = '/home/pi/operos-genomas/records'
 
 print("Creating instance of PyAudio:")
 audio = pyaudio.PyAudio() # create pyaudio instance
@@ -47,7 +47,7 @@ pygame.mixer.init()
 
 while True:
     if button.is_pressed:
-        print("Lift the button to start recording", animation[idx % len(animation)], end="\r")
+#        print("Lift the button to start recording", animation[idx % len(animation)], end="\r")
         idx += 1
         time.sleep(0.5)
 
@@ -56,14 +56,14 @@ while True:
         """
         First, play an old telephone tone lasting 5 seconds...
         """
-        pygame.mixer.music.load("US_dial_tone.ogg.mp3")
+        pygame.mixer.music.load("/home/pi/operos-genomas/US_dial_tone.ogg.mp3")
         pygame.mixer.music.play()
 
-        print()
-        print("Recording")
+#        print()
+#        print("Recording")
 
 
-        print("Creating audio stream")
+#        print("Creating audio stream")
         stream = audio.open(format   = form_1,
                             rate     = samp_rate,
                             channels = chans,
@@ -84,7 +84,7 @@ while True:
 
         pygame.mixer.music.stop()
 
-        print("finished recording")
+#        print("finished recording")
 
         # stop the stream, close it, and terminate the pyaudio instantiation
         stream.stop_stream()
@@ -112,7 +112,7 @@ while True:
 
         while not button.is_pressed:
             if not pygame.mixer.music.get_busy():
-                pygame.mixer.music.load("US_dial_tone.ogg.mp3")
+                pygame.mixer.music.load("/home/pi/operos-genomas/US_dial_tone.ogg.mp3")
                 pygame.mixer.music.play()
 
         pygame.mixer.music.stop()
