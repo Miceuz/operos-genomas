@@ -16,10 +16,12 @@ form_1      = pyaudio.paInt16   # 16-bit resolution
 chans       = 1                 # 1 channel
 samp_rate   = 44100             # 44.1kHz sampling rate
 chunk       = 4096              # 2^12 samples for buffer
-record_secs = 60               # seconds to record
+record_secs = 60*30             # seconds to record
 dev_index   = 1                 # device index found by p.get_device_info_by_index(ii)
 
 output_dir = '/home/pi/operos-genomas/records'
+PROMPT = '/home/pi/operos-genomas/pradzia.mp3'
+HANG_UP = '/home/pi/operos-genomas/pakeltas.mp3'
 
 print("Creating instance of PyAudio:")
 audio = pyaudio.PyAudio() # create pyaudio instance
@@ -56,7 +58,7 @@ while True:
         """
         First, play an old telephone tone lasting 5 seconds...
         """
-        pygame.mixer.music.load("/home/pi/operos-genomas/US_dial_tone.ogg.mp3")
+        pygame.mixer.music.load(PROMPT)
         pygame.mixer.music.play()
 
 #        print()
@@ -112,7 +114,7 @@ while True:
 
         while not button.is_pressed:
             if not pygame.mixer.music.get_busy():
-                pygame.mixer.music.load("/home/pi/operos-genomas/US_dial_tone.ogg.mp3")
+                pygame.mixer.music.load(HANG_UP)
                 pygame.mixer.music.play()
 
         pygame.mixer.music.stop()
