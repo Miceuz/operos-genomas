@@ -23,6 +23,8 @@ output_dir = '/home/pi/operos-genomas/records'
 PROMPT = '/home/pi/operos-genomas/pradzia.mp3'
 HANG_UP = '/home/pi/operos-genomas/pakeltas.mp3'
 
+prompts = ['/home/pi/operos-genomas/Fragmentas1.mp3','/home/pi/operos-genomas/Fragmentas2.mp3','/home/pi/operos-genomas/Fragmentas3.mp3',]
+
 print("Creating instance of PyAudio:")
 audio = pyaudio.PyAudio() # create pyaudio instance
 
@@ -33,6 +35,40 @@ def callback(in_data, frame_count, time_info, status):
     mic_audio = numpy.fromstring(in_data,dtype=numpy.int16)
     frames.append(mic_audio)
     return (mic_audio, pyaudio.paContinue)
+
+def record():
+    stream = audio.open(format   = form_1,
+                        rate     = samp_rate,
+                        channels = chans,
+                        input_device_index  = dev_index,
+                        input    = True,
+                        frames_per_buffer   =chunk,
+                        stream_callback = callback)
+
+    start_time = time.time()
+
+    while (time.time()-start_time <= record_secs):
+        if button.is_pressed:
+            break
+
+    pygame.mixer.music.stop()
+
+    stream.stop_stream()
+    stream.close()
+    filename = output_dir+'/'+str(int(time.time())) + ".wav"
+
+    wavefile = wave.open(filename,'wb')   
+    wavefile.setnchannels(chans)
+    wavefile.setsampwidth(audio.get_sample_size(form_1))
+    wavefile.setframerate(samp_rate)
+    wavefile.writeframes(b''.join(frames))
+    wavefile.close()
+
+    print("File saved as: ", filename)
+
+    counter += 1
+    frames = []
+
 
 
 """
@@ -47,6 +83,8 @@ idx = 0
 
 pygame.mixer.init()
 
+i = 0
+
 while True:
     if button.is_pressed:
 #        print("Lift the button to start recording", animation[idx % len(animation)], end="\r")
@@ -55,67 +93,19 @@ while True:
 
     else:
 
-        """
-        First, play an old telephone tone lasting 5 seconds...
-        """
-        pygame.mixer.music.load(PROMPT)
+        pygame.mixer.music.load(prompts[i])
         pygame.mixer.music.play()
+        i = i + 1
+        if i >= len(prompts):
+            i = 0
 
-#        print()
-#        print("Recording")
-
-
-#        print("Creating audio stream")
-        stream = audio.open(format   = form_1,
-                            rate     = samp_rate,
-                            channels = chans,
-                            input_device_index  = dev_index,
-                            input    = True,
-                            frames_per_buffer   =chunk,
-                            stream_callback = callback)
-
-        start_time = time.time()
-
-        while (time.time()-start_time <= record_secs):
-            """
-            Record for "record_secs" number of seconds and check if stop button has been pressed to scape earlier 
-            and stop recording.
-            """
-            if button.is_pressed:
-                break
-
-        pygame.mixer.music.stop()
-
-#        print("finished recording")
-
-        # stop the stream, close it, and terminate the pyaudio instantiation
-        stream.stop_stream()
-        stream.close()
-        # audio.terminate()
-
-        # save the audio frames as .wav file
-        filename = output_dir+'/'+str(int(time.time())) + ".wav"
-
-        wavefile = wave.open(filename,'wb')   
-        wavefile.setnchannels(chans)
-        wavefile.setsampwidth(audio.get_sample_size(form_1))
-        wavefile.setframerate(samp_rate)
-        wavefile.writeframes(b''.join(frames))
-        wavefile.close()
-
-        print("File saved as: ", filename)
-
-        # Increment the count for the filename and reset frames
-        counter += 1
-        frames = []
-
-        # comment this line out in production for the script to loop forever
-        # break
+        # record()
 
         while not button.is_pressed:
-            if not pygame.mixer.music.get_busy():
-                pygame.mixer.music.load(HANG_UP)
-                pygame.mixer.music.play()
+            # if not pygame.mixer.music.get_busy():
+            #     pygame.mixer.music.load(HANG_UP)
+            #     pygame.mixer.music.play()
+            sleep(1)
 
         pygame.mixer.music.stop()
 
