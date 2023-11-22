@@ -6,6 +6,7 @@ import  numpy
 import  time
 import  pygame
 from    gpiozero    import Button
+import time
 
 button = Button(2)              # GPIO 
 
@@ -105,7 +106,7 @@ while True:
             # if not pygame.mixer.music.get_busy():
             #     pygame.mixer.music.load(HANG_UP)
             #     pygame.mixer.music.play()
-            sleep(1)
+            time.sleep(1)
 
         pygame.mixer.music.stop()
 
